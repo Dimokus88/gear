@@ -1,0 +1,37 @@
+---
+version: "2.0"
+
+services:
+  app:
+    image: dimokus88/gear:0.0.1
+    env:
+     - My_Gear_node_name=Your_Gear_node_name
+    
+    expose:
+      - port: 80
+        as: 80
+        to:
+          - global: true
+     
+          
+profiles:
+  compute:
+    app:
+      resources:
+        cpu:
+          units: 2.0
+        memory:
+          size: 4Gi
+        storage:
+          size: 10Gi
+  placement:
+    akash:
+      pricing:
+        app:
+          denom: uakt
+          amount: 100
+deployment:
+  app:
+    akash:
+      profile: app
+      count: 1 #max 2 count
